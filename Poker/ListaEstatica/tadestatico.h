@@ -23,7 +23,7 @@ void inicializa_lista_estatica (Tlista<TIPO, MAX> &lista){
 
 template <typename TIPO, int MAX>
 bool insere_inicio(Tlista<TIPO, MAX> &lista, TElemento<TIPO> carta){
-    if(lista.tamanho<TAM){
+    if(lista.tamanho<MAX){
         if (lista.tamanho==0){
             lista.elemento[0]=carta;
             lista.tamanho++;
@@ -103,9 +103,12 @@ template <typename TIPO, int MAX>
 void bubblesort (Tlista<TIPO, MAX> &lista, int tam){
     int i, j;
     TElemento<TIPO> aux;
+        TElemento<TIPO> aux2;
     for (i=0; i<tam; i++){
         for (j=0; j<tam-1; j++){
-            if (lista.elemento[j] >= lista.elemento[j+1]){ //Organiza pelo valor
+            aux=lista.elemento[j];
+            aux2=lista.elemento[j+1];
+            if (aux.dado >= aux2.dado){ //Organiza pelo valor
                 aux=lista.elemento[j];
                 lista.elemento[j]=lista.elemento[j+1];
                 lista.elemento[j+1]=aux;
@@ -120,8 +123,10 @@ template <typename TIPO, int MAX>
 int partition(Tlista<TIPO, MAX> &lista, int left, int right) {
     int i, j;
     i = left;
+    TElemento<TIPO> aux1=lista.elemento[left], aux2;
     for (j = left + 1; j <= right; ++j) {
-        if (lista.elemento[j] < lista.elemento[left]) {
+        aux2=lista.elemento[j];
+        if (aux2.dado < aux1.dado) {
             ++i;
             TElemento<TIPO> aux = lista.elemento[i];
             lista.elemento[i] = lista.elemento[j];

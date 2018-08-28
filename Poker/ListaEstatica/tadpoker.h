@@ -76,5 +76,7 @@ void imprime(Tlista<TipoCarta, MAX> lista){
 }
 
 bool operator >= (TipoCarta a, TipoCarta b){return a.naipe*10+a.valor<b.naipe*10+b.valor;}
+bool operator < (TipoCarta a, TipoCarta b){return a.naipe*10+a.valor<b.naipe*10+b.valor;}
+
 
 #endif // TADPOKER_H

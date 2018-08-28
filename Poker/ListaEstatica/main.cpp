@@ -5,7 +5,7 @@ int main()
 {
 
     Tlista<TipoCarta, 52> dealer;
-    Tlista<TipoCarta, 2> jogador1, jogador2;
+    Tlista<TipoCarta, 52> jogador1, jogador2;
     Tlista<TipoCarta, 5> mesa;
     inicializa_lista_estatica(dealer);
     inicializa_lista_estatica(jogador1);
@@ -14,6 +14,7 @@ int main()
     monta_baralho(dealer);
     embaralha(dealer);
     distribuir(dealer, jogador1, 2);
+    distribuir(dealer, jogador2, 2);
     cout << "Jogador 1: " << endl;
     imprime(jogador1);
     cout << "Jogador 2: " << endl;
