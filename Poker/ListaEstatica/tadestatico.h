@@ -2,7 +2,7 @@
 #define TADESTATICO_H
 #include <iostream>
 using namespace std;
-const int TAM=52;
+
 
 
 template <typename TIPO>
@@ -43,7 +43,7 @@ bool insere_inicio(Tlista<TIPO, MAX> &lista, TElemento<TIPO> carta){
 
 template <typename TIPO,int MAX>
 bool insere_fim(Tlista<TIPO, MAX> &lista, TElemento<TIPO> carta){
-    if(lista.tamanho<TAM){
+    if(lista.tamanho<MAX){
         lista.elemento[lista.tamanho]=carta;
         lista.tamanho++;
 
@@ -53,7 +53,7 @@ bool insere_fim(Tlista<TIPO, MAX> &lista, TElemento<TIPO> carta){
 
 template <typename TIPO, int MAX>
 void insere_posicao(Tlista<TIPO, MAX> &lista, TElemento<TIPO> Carta, int position){
-    if(lista.tamanho<TAM){
+    if(lista.tamanho<MAX){
         if(lista.tamanho==0){
             lista.elemento[0]=Carta;
             lista.tamanho++;
@@ -89,7 +89,7 @@ bool remove_fim(Tlista<TIPO, MAX> &lista){
 
 template <typename TIPO, int MAX>
 bool remove_position(Tlista<TIPO, MAX> &lista, int position){
-    if(lista.tamanho<TAM){
+    if(lista.tamanho<MAX){
         for (int i=position; i< lista.tamanho-1; i++)
             lista.elemento[i]=lista.elemento[i+1];
         lista.tamanho--;
