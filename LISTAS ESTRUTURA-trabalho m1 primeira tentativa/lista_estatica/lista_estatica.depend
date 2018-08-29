@@ -1,0 +1,37 @@
+# depslib dependency file v1.0
+1522952744 source:c:\users\6514995\downloads\listas estrutura\listas estrutura\lista_estatica\main.cpp
+	<iostream>
+	<stdlib.h>
+	<ctime>
+	"generico.h"
+	"tad.h"
+	<algorithm>
+	<windows.h>
+
+1522954031 c:\users\6514995\downloads\listas estrutura\listas estrutura\lista_estatica\generico.h
+	<iostream>
+	"tad.h"
+	<string.h>
+	<algorithm>
+
+1522952728 c:\users\6514995\downloads\listas estrutura\listas estrutura\lista_estatica\tad.h
+	<iostream>
+
+1523398886 source:c:\users\patrick\desktop\patrick\faculdade\listas estrutura\listas estrutura\lista_estatica\main.cpp
+	<iostream>
+	<stdlib.h>
+	<ctime>
+	"generico.h"
+	"tad.h"
+	<algorithm>
+	<windows.h>
+
+1523398177 c:\users\patrick\desktop\patrick\faculdade\listas estrutura\listas estrutura\lista_estatica\generico.h
+	<iostream>
+	"tad.h"
+	<string.h>
+	<algorithm>
+
+1522952730 c:\users\patrick\desktop\patrick\faculdade\listas estrutura\listas estrutura\lista_estatica\tad.h
+	<iostream>
+

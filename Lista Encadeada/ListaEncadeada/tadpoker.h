@@ -3,6 +3,8 @@
 #include <iostream>
 using namespace std;
 #include "tadlistaencadeada.h"
+#include <time.h>
+#include <stdlib.h>
 
 struct TipoCarta{
     int valor;

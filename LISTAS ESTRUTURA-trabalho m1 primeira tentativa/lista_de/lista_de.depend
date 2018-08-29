@@ -1,0 +1,32 @@
+# depslib dependency file v1.0
+1522176129 source:c:\users\6427626\desktop\lista_de\main.cpp
+	<iostream>
+	"lista_duplamente_encadeada.h"
+	<windows.h>
+
+1522175810 c:\users\6427626\desktop\lista_de\lista_duplamente_encadeada.h
+	<windows.h>
+	<iostream>
+
+1522178822 source:c:\users\6427626\desktop\listas estrutura\lista_de\main.cpp
+	<iostream>
+	"lista_duplamente_encadeada.h"
+	<windows.h>
+
+1522178831 c:\users\6427626\desktop\listas estrutura\lista_de\lista_duplamente_encadeada.h
+	<windows.h>
+	<iostream>
+
+1522950606 source:c:\users\6514995\downloads\listas estrutura\listas estrutura\lista_de\main.cpp
+	<iostream>
+	"musica.h"
+	"lista_duplamente_encadeada.h"
+	<windows.h>
+
+1522178832 c:\users\6514995\downloads\listas estrutura\listas estrutura\lista_de\lista_duplamente_encadeada.h
+	<windows.h>
+	<iostream>
+
+1522950635 c:\users\6514995\downloads\listas estrutura\listas estrutura\lista_de\musica.h
+	<iostream>
+

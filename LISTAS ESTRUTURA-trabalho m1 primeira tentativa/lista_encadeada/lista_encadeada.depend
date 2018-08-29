@@ -1,0 +1,22 @@
+# depslib dependency file v1.0
+1522236944 source:c:\users\6427626\downloads\listas novamente\listas estrutura\lista_encadeada\main.cpp
+	<iostream>
+	"tad.h"
+	<windows.h>
+
+1522237181 c:\users\6427626\downloads\listas novamente\listas estrutura\lista_encadeada\tad.h
+	<iostream>
+
+1522960949 source:c:\users\6514995\downloads\listas estrutura\listas estrutura\lista_encadeada\main.cpp
+	<iostream>
+	"tad.h"
+	<windows.h>
+	<ctime>
+
+1522960571 c:\users\6514995\downloads\listas estrutura\listas estrutura\lista_encadeada\tad.h
+	<iostream>
+	"tadespecifico.h"
+
+1522950187 c:\users\6514995\downloads\listas estrutura\listas estrutura\lista_encadeada\tadespecifico.h
+	<iostream>
+
