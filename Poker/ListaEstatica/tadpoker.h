@@ -16,11 +16,11 @@ struct TipoCarta //Carta
 
 template <typename TIPO, int MAX>
 void monta_baralho(Tlista<TIPO, MAX> &lista){
-    TElemento<TipoCarta> carta;
+    TipoCarta carta;
     for(int i=0; i<4; i++){//Naipe
         for (int j=1; j<14; j++){//Valor da carta
-            carta.dado.naipe=i;
-            carta.dado.naipe=j;
+            carta.naipe=i;
+            carta.naipe=j;
             insere_fim(lista, carta);
         }
     }
@@ -43,8 +43,10 @@ void embaralha (Tlista<TIPO, MAX> &dealer){
 
 template <typename TIPO, int MAX>
 void distribuir (Tlista<TIPO, MAX> &dealer, Tlista<TIPO,MAX> &jogador, int tamanho){//'tamanho' é o tamanho de cartas que o jogador
+
     for (int i=0; i<tamanho; i++){                             // irá receber;
-        insere_fim(jogador, dealer.elemento[0]);
+        TIPO carta = dealer.elemento[0];
+        insere_fim(jogador, carta);
         remove_inicio(dealer);
     }
 }

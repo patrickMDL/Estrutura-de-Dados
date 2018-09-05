@@ -42,9 +42,9 @@ bool insere_inicio(Tlista<TIPO, MAX> &lista, TElemento<TIPO> carta){
 }
 
 template <typename TIPO,int MAX>
-bool insere_fim(Tlista<TIPO, MAX> &lista, TElemento<TIPO> carta){
+bool insere_fim(Tlista<TIPO, MAX> &lista, TIPO dado){
     if(lista.tamanho<MAX){
-        lista.elemento[lista.tamanho]=carta;
+        lista.elemento[lista.tamanho]=dado;
         lista.tamanho++;
 
     }
@@ -52,17 +52,17 @@ bool insere_fim(Tlista<TIPO, MAX> &lista, TElemento<TIPO> carta){
 }
 
 template <typename TIPO, int MAX>
-void insere_posicao(Tlista<TIPO, MAX> &lista, TElemento<TIPO> Carta, int position){
+void insere_posicao(Tlista<TIPO, MAX> &lista, TIPO dado, int position){
     if(lista.tamanho<MAX){
         if(lista.tamanho==0){
-            lista.elemento[0]=Carta;
+            lista.elemento[0]=dado;
             lista.tamanho++;
         }
         else{
             for(int i=lista.tamanho; i>position; i--){
                 lista.elemento[i]=lista.elemento[i-1];
             }
-            lista.elemento[position]=Carta;
+            lista.elemento[position]=dado;
             lista.tamanho++;
         }
     }

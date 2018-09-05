@@ -24,7 +24,7 @@ void inicializa (TListaDE<TIPO> &lista){
 }
 
 template <typename TIPO>
-TElementoDE<TIPO>*novo_elemento_lista_DE(TIPO dado){
+TElementoDE<TIPO> *novo_elemento_lista_DE(TIPO dado){
     TElementoDE<TIPO>*novo=new TElementoDE<TIPO>;
     novo->dado=dado;
     novo->proximo=NULL;
@@ -69,51 +69,39 @@ bool insereFinal(TListaDE<TIPO>&lista,TIPO dado){
 }
 
 template<typename TIPO>
-bool inserePos(TListaDE<TIPO>&lista,TIPO dado, int pos){
-    TElementoDE<TIPO> *nav=lista.inicio;
+void inserePos(TListaDE<TIPO>&lista,int pos, TIPO dado){
     TElementoDE<TIPO> *novo=novo_elemento_lista_DE(dado);
-    int i = 0;
-    if(pos == 0){
-        novo->proximo=nav;
-        nav->anterior=novo;
+    TElementoDE<TIPO> *nav=lista.inicio;
+    if (pos==0){
+        novo->proximo=lista.inicio;
+        novo->anterior=NULL;
         lista.inicio=novo;
-        return true;
-    }else if(lista.inicio==NULL){
-        lista.inicio=novo;
-        lista.fim=novo;
-        return true;
     }
-    while(i<pos-1 && nav!=NULL){
-        nav=nav->proximo;
-        i++;
-    }
-    if(nav==NULL){
-        lista.fim->proximo=novo;
-        novo->anterior=lista.fim;
-        novo->proximo=NULL;
-        lista.fim=novo;
-        return true;
-    }
-    if(nav->proximo == NULL){
-        lista.fim = novo;
+    else{
+        int i=0;
+        while ( i<pos && nav->proximo!=NULL){
+            nav=nav->proximo;
+            i++;
+        }
         novo->proximo=nav->proximo;
         nav->proximo=novo;
         novo->anterior=nav;
-        novo->proximo->anterior = novo;
-        return true;
-    }else
-        return false;
+        novo->proximo->proximo=novo;
+
+    }
 }
 template<typename TIPO>
 bool removeFim(TListaDE<TIPO>&lista){
     if(lista.inicio==NULL){
         return false;
+    }else{
+        TElementoDE<TIPO>*deletar=lista.fim;
+        TElementoDE<TIPO>*nav=deletar->anterior;
+        lista.fim=nav;
+        nav->proximo=NULL;
+        delete deletar;
+
     }
-    TElementoDE<TIPO>*antigo=lista.fim;
-    lista.fim=antigo->anterior;
-    lista.fim->proximo=NULL;
-    delete antigo;
-    return true;
 }
 template <typename TIPO>
 bool removeInicio(TListaDE<TIPO> &lista){
@@ -126,15 +114,6 @@ bool removeInicio(TListaDE<TIPO> &lista){
         lista.inicio=nav1;
         delete nav;
         return true;
-    }
-}
-
-template<typename TIPO>
-void imprime_lista(TListaDE<TIPO>lista){
-    TElementoDE<TIPO> *nav1=lista.inicio;
-    while(nav1!=NULL){
-        cout<< nav1->dado<<endl;
-        nav1=nav1->proximo;
     }
 }
 
@@ -162,85 +141,72 @@ bool removePosicao(TListaDE<TIPO> &lista,int pos){
 }
 
 template <typename TIPO>
-void bubblesort(TListaDE<TIPO>&lista){
+void bubblesort (TListaDE<TIPO> &lista){
     TElementoDE<TIPO> *nav=lista.inicio;
-    TElementoDE<TIPO> *cont=lista.inicio;
-    while(cont!=NULL){
-        while(nav->proximo!=NULL) {
-            TElementoDE<TIPO> *prox = nav->proximo;
-            if(nav->dado > prox->dado) {
-                TIPO aux;
-                aux=nav->dado;
-                nav->dado=prox->dado;
-                prox->dado=aux;
+    TElementoDE<TIPO> *aux;
+    TIPO aux2;
+    while (nav!=NULL){
+        aux=nav->proximo;
+        while (aux!=NULL){
+            if(nav->dado>aux->dado){
+                aux2=nav->dado;
+                nav->dado=aux->dado;
+                aux->dado=aux2;
             }
-            nav=nav->proximo;
+        aux=aux->proximo;
         }
-        nav = lista.inicio;
-        cont=cont->proximo;
-    }
-}
-template <typename TIPO>
-int obterTamanho(TListaDE<TIPO>&lista) {
-    TElementoDE<TIPO> *nav = lista.inicio;
-    int tam = 0;
-    while(nav->proximo!=NULL) {
         nav=nav->proximo;
-        tam++;
     }
-    return tam+1;
-}
-// retorna a posicao do elemento na lista
-template <typename TIPO>
-int obterElementoPosicao(TListaDE<TIPO>&lista, TElementoDE<TIPO> *elem) {
-    TElementoDE<TIPO> *nav = lista.inicio;
-    int pos = 0;
-    while(nav != elem) {
-        nav=nav->proximo;
-        pos++;
-    }
-    return pos;
 }
 
-// retorna o elemento correspondente a posicao informada
 template <typename TIPO>
-TElementoDE<TIPO>* obterElementoPorPosicao(TListaDE<TIPO>&lista, int pos) {
+TElementoDE<TIPO> *obterElementoPorPosicao(TListaDE<TIPO> &lista, int pos){
     TElementoDE<TIPO> *nav = lista.inicio;
-    int cont = 0;
-    while(nav->proximo != NULL && cont != pos) {
-        nav = nav->proximo;
-        cont++;
+    for(int i=0; i<pos;i++){
+        nav=nav->proximo;
     }
     return nav;
 }
 
 template <typename TIPO>
-void quicksort(TListaDE<TIPO>&lista, int inicio, int fim)
-{
-    int metade = (inicio + fim)  / 2;
-    TElementoDE<TIPO> *esq = obterElementoPorPosicao(lista, inicio);
-    TElementoDE<TIPO> *pivo = obterElementoPorPosicao(lista, metade);
-    TElementoDE<TIPO> *dir = obterElementoPorPosicao(lista, fim);
-    cout << inicio << " - " << fim << endl << endl;
-    while(esq != pivo) { //direita para qnd prox da direita é esquerda dps inverte eles
-        while(pivo->dado > esq->dado && obterElementoPosicao(lista, esq) < fim)
-        {
-            esq = esq->proximo;
-        }
-        while (dir->dado > pivo->dado && obterElementoPosicao(lista, dir) > inicio) { // modificar pra direita ir pra esquerda
-            dir = dir->anterior;
-        }
-        if(esq != pivo) {
-            //cout << dir->dado << " TROCANDO " << esq->dado << endl;
-            swap(dir->dado, esq->dado);
-        }
+int tamanho(TListaDE<TIPO> &lista){
+    TElementoDE<TIPO> *aux=lista.inicio;
+    int t=0;
+    while(aux->proximo!=NULL){
+        aux=aux->proximo;
+        t++;
     }
-    if(obterElementoPosicao(lista, dir) > inicio && inicio < metade - 1)
-        quicksort(lista, inicio, metade);
-    if(obterElementoPosicao(lista, esq) < fim && fim > metade + 1)//-1 pra inicio e fim nao serem iguais
-        quicksort(lista, metade, fim);
-
+    return ++t;
 }
 
+template <typename TIPO>
+void quicksort(TListaDE<TIPO> &lista, int inicio, int fim){
+    int i=inicio, f=fim;
+    int metade = (i+f)/2;
+    TElementoDE<TIPO> *pivo;
+    pivo=obterElementoPorPosicao(lista,metade);
+    while (i!=f){
+        TElementoDE<TIPO> *esq = obterElementoPorPosicao(lista, i);
+        TElementoDE<TIPO> *dir = obterElementoPorPosicao(lista, f);
+        for (i=0; i<f; ++i){
+            esq=obterElementoPorPosicao(lista, i);
+            if(esq->dado >= pivo->dado)
+                break;
+        }
+        for (f=fim; f>i; --f){
+            dir = obterElementoPorPosicao(lista, f);
+            if (dir->dado <= pivo->dado)
+                break;
+        }
+        if (i<f)
+            swap(esq->dado, dir->dado);
+
+    }
+    i++;
+    if(inicio<f)
+        quicksort(lista, inicio, f);
+    if(i<fim)
+        quicksort(lista,i,fim);
+}
 
 #endif // TADDUPLAMENTEENCADEADA_H
