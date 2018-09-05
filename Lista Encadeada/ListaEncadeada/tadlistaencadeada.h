@@ -1,3 +1,4 @@
+
 #ifndef TADLISTAENCADEADA_H
 #define TADLISTAENCADEADA_H
 #include <iostream>
@@ -101,24 +102,78 @@ void remove_position(TLista<TIPO> &lista, int pos){
 
 template <typename TIPO>
 void remove_incio(TLista<TIPO> &lista){
-    TElemento<TIPO> deletar=new TElemento<TIPO>;
-    deletar=lista.inicio;
-    lista.inicio=deletar.proximo;
+    TElemento<TIPO> *deletar=lista.inicio;
+    lista.inicio=deletar->proximo;
     delete deletar;
 }
 
 template <typename TIPO>
 void bubblesort (TLista<TIPO> &lista){
-    TElemento<TIPO> *aux=lista.inicio;
-    TElemento<TIPO> *aux2=aux->proximo;
-    TElemento<TIPO> *aux3= new TElemento<TIPO>;
-    while (aux->proximo!=NULL){
-        if(aux->dado>aux2->dado){
-            aux3=aux;
-            aux=aux2;
-            aux2=aux3;
+    TElemento<TIPO> *nav=lista.inicio;
+    TElemento<TIPO> *aux;
+    TIPO aux2;
+    while (nav!=NULL){
+        aux=nav->proximo;
+        while (aux!=NULL){
+            if(nav->dado>aux->dado){
+                aux2=nav->dado;
+                nav->dado=aux->dado;
+                aux->dado=aux2;
+            }
+        aux=aux->proximo;
         }
-        aux2->proximo;
+        nav=nav->proximo;
     }
 }
+
+template <typename TIPO>
+TElemento<TIPO> *obterElementoPorPosicao(TLista<TIPO> &lista, int pos){
+    TElemento<TIPO> *nav = lista.inicio;
+    for(int i=0; i<pos;i++){
+        nav=nav->proximo;
+    }
+    return nav;
+}
+
+template <typename TIPO>
+int tamanho(TLista<TIPO> &lista){
+    TElemento<TIPO> *aux=lista.inicio;
+    int t=0;
+    while(aux->proximo!=NULL){
+        aux=aux->proximo;
+        t++;
+    }
+    return ++t;
+}
+
+template <typename TIPO>
+void quicksort(TLista<TIPO> &lista, int inicio, int fim){
+    int i=inicio, f=fim;
+    int metade = (i+f)/2;
+    TElemento<TIPO> *pivo;
+    pivo=obterElementoPorPosicao(lista,metade);
+    while (i!=f){
+        TElemento<TIPO> *esq = obterElementoPorPosicao(lista, i);
+        TElemento<TIPO> *dir = obterElementoPorPosicao(lista, f);
+        for (i=0; i<f; ++i){
+            esq=obterElementoPorPosicao(lista, i);
+            if(esq->dado >= pivo->dado)
+                break;
+        }
+        for (f=fim; f>i; --f){
+            dir = obterElementoPorPosicao(lista, f);
+            if (dir->dado <= pivo->dado)
+                break;
+        }
+        if (i<f)
+            swap(esq->dado, dir->dado);
+
+    }
+    i++;
+    if(inicio<f)
+        quicksort(lista, inicio, f);
+    if(i<fim)
+        quicksort(lista,i,fim);
+}
+
 #endif // TADLISTAENCADEADA_H

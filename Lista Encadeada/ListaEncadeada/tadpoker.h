@@ -5,6 +5,7 @@ using namespace std;
 #include "tadlistaencadeada.h"
 #include <time.h>
 #include <stdlib.h>
+int const TAM = 52;
 
 struct TipoCarta{
     int valor;
@@ -14,7 +15,7 @@ struct TipoCarta{
 template <typename TIPO>
 void monta_baralho(TLista<TIPO> &lista){
     TipoCarta carta;
-    for(int i=0; i<4; i++){//Naipe
+    for(int i=0; i<7; i+=2){//Naipe
         for (int j=1; j<14; j++){//Valor da carta
             carta.naipe=i;
             carta.valor=j;
@@ -26,47 +27,44 @@ void monta_baralho(TLista<TIPO> &lista){
 template <typename TIPO>
 void distribuir (TLista<TIPO> &dealer, TLista<TIPO> &jogador, int quantidade){
     for (int i=0; i<quantidade; i++){
-        insere_fim(jogador, dealer);
-        remove_inicio(dealer);
+        TElemento<TIPO> *aux=dealer.inicio;
+        TipoCarta carta = (aux->dado);
+        Insere_fim(jogador, carta);
+        remove_incio(dealer);
     }
 }
 
 template <typename TIPO>
-void embaralha (TLista<TIPO> &lista){
+void embaralhar(TLista<TIPO> baralho){
+    TElemento<TIPO> *aux = baralho.inicio;
+    TIPO aux2;
     srand(time(NULL));
-    TElemento<TIPO> *aux1=lista.inicio;
-    TElemento<TIPO> *aux2=aux1->proximo;
-    TElemento<TIPO> *aux3=new TElemento<TIPO>;
-    int aux=rand()%52;
-    while (aux1->proximo!=NULL){
-        for (int i=0; i<aux; i++){
-            aux2=aux2->proximo;
-        }
-        aux3=aux1;
-        aux1=aux2;
-        aux2=aux3;
+    for (int i=0; i<TAM; i++){
+        aux2=aux->dado;
+        int r = rand()%51 + 1;
+        Insere_position(baralho,r,aux2);
+        remove_incio(baralho);
+        aux=baralho.inicio;
     }
-
-
 }
 
 template <typename TIPO>
 void imprime(TElemento<TIPO> *lista){
     TElemento<TIPO> *nav=lista;
-    while(nav->proximo!=NULL){
+    while(nav!=NULL){
         string simbolo;
         int valor=nav->dado.valor;
         switch(nav->dado.naipe){
         case 0:
             simbolo="Espadas";
             break;
-        case 1:
+        case 2:
             simbolo="Copas";
             break;
-        case 2:
+        case 4:
             simbolo="Ouros";
             break;
-        case 3:
+        case 6:
             simbolo="Paus";
             break;
         }
@@ -77,5 +75,8 @@ void imprime(TElemento<TIPO> *lista){
     cout << "_________________________________________________________" << endl;
 }
 
-
+bool operator < (TipoCarta um, TipoCarta dois){ return um.valor < dois.valor;}
+bool operator > (TipoCarta um, TipoCarta dois){ return um.valor > dois.valor;}
+bool operator >= (TipoCarta um, TipoCarta dois){ return um.valor >= dois.valor;}
+bool operator <= (TipoCarta um, TipoCarta dois){ return um.valor <= dois.valor;}
 #endif // TADPOKER_H

@@ -7,4 +7,5 @@ SOURCES += \
         main.cpp
 
 HEADERS += \
-    tadduplamenteencadeada.h
+    tadduplamenteencadeada.h \
+    tadpoker.h
