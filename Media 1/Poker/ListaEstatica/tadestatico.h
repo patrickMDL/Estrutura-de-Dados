@@ -43,8 +43,9 @@ bool insere_inicio(Tlista<TIPO, MAX> &lista, TElemento<TIPO> carta){
 
 template <typename TIPO,int MAX>
 bool insere_fim(Tlista<TIPO, MAX> &lista, TIPO dado){
+    int tamanho=lista.tamanho;
     if(lista.tamanho<MAX){
-        lista.elemento[lista.tamanho]=dado;
+        lista.elemento[tamanho].dado=dado;
         lista.tamanho++;
 
     }
@@ -100,55 +101,42 @@ bool remove_position(Tlista<TIPO, MAX> &lista, int position){
 }
 
 template <typename TIPO, int MAX>
-void bubblesort (Tlista<TIPO, MAX> &lista, int tam){
-    int i, j;
+bool bubblesort (Tlista<TIPO, MAX> &lista){
     TElemento<TIPO> aux;
-        TElemento<TIPO> aux2;
-    for (i=0; i<tam; i++){
-        for (j=0; j<tam-1; j++){
-            aux=lista.elemento[j];
-            aux2=lista.elemento[j+1];
-            if (aux.dado >= aux2.dado){ //Organiza pelo valor
-                aux=lista.elemento[j];
-                lista.elemento[j]=lista.elemento[j+1];
-                lista.elemento[j+1]=aux;
+    for (int i; i<lista.tamanho-1; i++){
+        for (int j=0; j<lista.tamanho-1; j++){
+            if(lista.elemento[j].dado > lista.elemento[j+1].dado){
+                aux = lista.elemento[j];
+                lista.elemento[j] = lista.elemento[j+1];
+                lista.elemento[j+1] =aux;
             }
         }
     }
-}
-
-
-
-template <typename TIPO, int MAX>
-int partition(Tlista<TIPO, MAX> &lista, int left, int right) {
-    int i, j;
-    i = left;
-    TElemento<TIPO> aux1=lista.elemento[left], aux2;
-    for (j = left + 1; j <= right; ++j) {
-        aux2=lista.elemento[j];
-        if (aux2.dado < aux1.dado) {
-            ++i;
-            TElemento<TIPO> aux = lista.elemento[i];
-            lista.elemento[i] = lista.elemento[j];
-            lista.elemento[j] = aux;
-        }
-    }
-    TElemento<TIPO> aux = lista.elemento[left];
-    lista.elemento[left] = lista.elemento[i];
-    lista.elemento[i]= aux;
-    return i;
+    return true;
 }
 
 template <typename TIPO, int MAX>
-void quicksort(Tlista<TIPO, MAX> &lista, int left, int right) {
-    int r;
-    if (right > left) {
-        r =partition(lista, left, right);
-        quicksort(lista, left, r - 1);
-        quicksort(lista, r + 1, right);
+bool quicksort (Tlista<TIPO, MAX> &lista, int inicio, int fim){
+    int i=inicio, j=fim;
+    int metade=(i+j)/2;
+    TIPO pivo = lista.elemento[metade].dado;
+    TElemento<TIPO> aux;
+    while(i<=j){
+        while(lista.elemento[i].dado < pivo && i<inicio)
+            i++;
+        while (lista.elemento[j].dado > pivo && j> fim)
+            j--;
+        aux = lista.elemento[i];
+        lista.elemento[i] = lista.elemento[j];
+        lista.elemento[j] = aux;
+        i++;
+        j--;
     }
+    if(inicio<j)
+        quicksort(lista, inicio, j);
+    if (i < fim)
+        quicksort(lista, j, fim);
+    return true;
 }
-
-
 
 #endif // TADESTATICO_H

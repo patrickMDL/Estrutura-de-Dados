@@ -72,7 +72,6 @@ template<typename TIPO>
 void inserePos(TListaDE<TIPO>&lista,int pos, TIPO dado){
     TElementoDE<TIPO> *novo=novo_elemento_lista_DE(dado);
     TElementoDE<TIPO> *nav=lista.inicio;
-    TElementoDE<TIPO> *nav2=lista.fim;
     if (pos==0){
         novo->proximo=lista.inicio;
         novo->anterior=NULL;
@@ -82,15 +81,8 @@ void inserePos(TListaDE<TIPO>&lista,int pos, TIPO dado){
         int i=0;
         while ( i<pos && nav->proximo!=NULL){
             nav=nav->proximo;
-
             i++;
-        }int j=tamanho(lista);
-        while (j>pos && nav2->anterior!=NULL){
-            nav2=nav2->anterior;
-            j--;
         }
-
-
         if (nav->proximo==NULL){
             if((i+1) == pos){
                 nav->proximo=novo;
@@ -102,7 +94,7 @@ void inserePos(TListaDE<TIPO>&lista,int pos, TIPO dado){
                 novo->anterior=nav;
                 nav->proximo=novo;
                 nav=novo->proximo;
-                nav2->anterior=novo;
+                nav->anterior = novo;
             }
         }
 }

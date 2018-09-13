@@ -17,10 +17,10 @@ struct TipoCarta //Carta
 template <typename TIPO, int MAX>
 void monta_baralho(Tlista<TIPO, MAX> &lista){
     TipoCarta carta;
-    for(int i=0; i<4; i++){//Naipe
+    for(int i=0; i<7; i+=2){//Naipe
         for (int j=1; j<14; j++){//Valor da carta
             carta.naipe=i;
-            carta.naipe=j;
+            carta.valor=j;
             insere_fim(lista, carta);
         }
     }
@@ -45,8 +45,9 @@ template <typename TIPO, int MAX>
 void distribuir (Tlista<TIPO, MAX> &dealer, Tlista<TIPO,MAX> &jogador, int tamanho){//'tamanho' é o tamanho de cartas que o jogador
 
     for (int i=0; i<tamanho; i++){                             // irá receber;
-        TIPO carta = dealer.elemento[0];
-        insere_fim(jogador, carta);
+        TElemento<TIPO> carta = dealer.elemento[0];
+        TipoCarta aux = carta.dado;
+        insere_fim(jogador, aux);
         remove_inicio(dealer);
     }
 }
@@ -60,13 +61,13 @@ void imprime(Tlista<TipoCarta, MAX> lista){
         case 0:
             simbolo="Espadas";
             break;
-        case 1:
+        case 2:
             simbolo="Copas";
             break;
-        case 2:
+        case 4:
             simbolo="Ouros";
             break;
-        case 3:
+        case 6:
             simbolo="Paus";
             break;
         }
@@ -77,8 +78,10 @@ void imprime(Tlista<TipoCarta, MAX> lista){
     cout << "_________________________________________________________" << endl;
 }
 
-bool operator >= (TipoCarta a, TipoCarta b){return a.naipe*10+a.valor<b.naipe*10+b.valor;}
+
 bool operator < (TipoCarta a, TipoCarta b){return a.naipe*10+a.valor<b.naipe*10+b.valor;}
+bool operator > (TipoCarta a, TipoCarta b){return a.naipe*10+a.valor>b.naipe*10+b.valor;}
+
 
 
 #endif // TADPOKER_H

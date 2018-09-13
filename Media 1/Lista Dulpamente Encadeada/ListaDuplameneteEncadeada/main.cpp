@@ -1,3 +1,8 @@
+//                  Engenharia de Computação
+//  Matéria: Estrutura de dados
+//  Alunos: Alexandre Fernandes da Silva // Patrick Medeiros De Luca
+//  Email:  alexandre.fernandes@edu.univali.br // pjepk2@gmail.com
+//
 #include "tadduplamenteencadeada.h"
 #include "tadpoker.h"
 
