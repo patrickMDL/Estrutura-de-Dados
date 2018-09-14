@@ -1,0 +1,36 @@
+Desenvolva uma biblioteca para fila que contenha as seguintes funções:
+- inicializa fila
+- entrar_na_fila: insere elemento no final
+- atender: remove elemento do início
+- primeiro: retorna primeiro elemento 
+
+Desenvolva um programa para 'simular' o potencial de atendimento a torcedores de um estádio, utilizando uma fila para cada guichê de atendimento, com as seguintes características:
+
+Como entrada, o programa deverá solicitar ao usuário:
+- qtd. de guichês sócio-torcedor;
+- qtd. de guichês normal;
+- qtd de pessoas que estão aguardando antes do início da simulação (carga inicial);
+- qtd de pessoas que procuram os guichês a cada unidade de tempo; e
+- qtd de tempo em que o modelo será 'simulado'.
+
+Ao entrar em uma fila, os clientes sempre avaliam qual delas é a menor, para serem atendidos em menor tempo (as filas devem ser demonstradas);
+
+Frequência na procura por guichês: 
+- 5% das pessoas procuram guichês sócio-torcedor;
+- 95% das pessoas procuram guichês normal.
+
+Quantidade de tempo de atendimento aos sócio-torcedores: 
+- 85% são atendidas em 1 unidade de tempo;
+- 15% são atendidas em 2 unidades de tempo.
+
+Quantidade de tempo de atendimento aos torcedores normais: 
+- 25% são atendidas em 1 unidades de tempo;
+- 30% são atendidas em 2 unidades de tempo;
+- 45% são atendidas em 3 unidades de tempo.
+
+Ao final apresente: 
+-Quantidade em média de torcedores que esperam por fila, no final da simulação. 
+
+Para finalizar o trabalho, um relatório (com no máximo uma página) deverá ser feito com o nome dos integrantes da equipe. Deverá constar no relatório uma avaliação sobre perspectivas otimista, média e pessimista, indicando um número seguro de atendentes necessários.
+
+*Evidências de cópia de outras fontes (colegas, Internet) implicam em nota ZERO como nota final deste trabalho (sem possibilidade de recuperação da nota).
