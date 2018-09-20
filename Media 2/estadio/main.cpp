@@ -5,6 +5,7 @@ using namespace std;
 ///Minhas bibliotecas;
 #include "tadfila.h"
 #include "tad_estadio.h"
+#include "design.h"
 
 void fila (){
     int qtdN, qtdST, ptotal, pturno, saidaN = 0, saidaST = 0, tempo;
@@ -71,22 +72,65 @@ void fila (){
 
 }
 
-//void selection (int realPosition, int arrowPosition) ///Função para seta no menu;
-//{
-//    if (realPosition == arrowPosition)
-//    {
-//        textcolor(12,0);
-//        printf ("       --->   ");
-//    }
-//    else
-//    {
-//        textcolor(15,0);
-//        printf ("       ");
-//    }
-//}
+void selection (int realPosition, int arrowPosition) ///Função para seta no menu;
+{
+    if (realPosition == arrowPosition)
+    {
+        textcolor(12,0);
+        printf ("       --->   ");
+    }
+    else
+    {
+        textcolor(15,0);
+        printf ("       ");
+    }
+}
 
 int main()
 {
-    cout << "Hello World!" << endl;
+    int key=0, position=1, sair=1;
+    hide();
+    do{
+        while(key!=13){
+            system("cls");
+            gotoxy(0,0);
+            textcolor(9,0);
+            cout << "TRABALHO M2" << endl;
+            selection (1,position);
+            cout << "Estadio" << endl;
+            selection (2,position);
+            cout << "Creditos" << endl;
+            selection (3,position);
+            cout << "Sair" << endl;
+            key = getch();
+
+            if (key == 80 && position != 3)
+                position ++;
+            else if (key == 72 && position !=1)
+                position --;
+
+            }
+        switch(position){
+        case 1:
+            system ("cls");
+            fila();
+            main();
+            break;
+        case 2:
+            system("cls");
+            textcolor(9,0);
+            gotoxy(9,0);
+            cout << "Alexandre Fernandes Da Silva" << endl;
+            textcolor(9,0);
+            gotoxy(9,1);
+            cout << "Patrick Medeiros De Luca" << endl;
+
+            system("pause");
+            main();
+            break;
+        case 3:
+            exit(0);
+        }
+    }while (sair!=0);
     return 0;
 }
