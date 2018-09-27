@@ -9,4 +9,5 @@ SOURCES += \
 HEADERS += \
     tadfila.h \
     tad_estadio.h \
-    design.h
+    design.h \
+    linux.h

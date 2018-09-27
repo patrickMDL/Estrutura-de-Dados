@@ -1,11 +1,14 @@
-#include <windows.h>
-#include <conio.h>
+//#include <windows.h>
+//#include <conio.h>
 #include <iostream>
 using namespace std;
 ///Minhas bibliotecas;
 #include "tadfila.h"
 #include "tad_estadio.h"
-#include "design.h"
+//#include "design.h" Bilioteca gráfica para usar quando rodar o programa em um windows.
+// Mas há a necessidade de adaptar o código.
+#include "linux.h"
+
 
 void fila (){
     int qtdN, qtdST, ptotal, pturno, saidaN = 0, saidaST = 0, tempo;
@@ -65,7 +68,7 @@ void fila (){
             }
         }
         distribui(pturno, filaN, filaST, qtdST, qtdN, controle);
-        system("pause");
+        getchar();
         tempo--;
     }
     resultado(filaN, filaST, qtdN, qtdST, saidaN, saidaST, media1, media2);
@@ -74,36 +77,41 @@ void fila (){
 
 void selection (int realPosition, int arrowPosition) ///Função para seta no menu;
 {
+    Color::Modifier red(Color::FG_RED);
+    Color::Modifier defult(Color::FG_DEFAULT);
+    Color::Modifier blue(Color::FG_BLUE);
     if (realPosition == arrowPosition)
     {
-        textcolor(12,0);
-        printf ("       --->   ");
+        
+        cout << red << "       --->   " << defult;
     }
     else
     {
-        textcolor(15,0);
-        printf ("       ");
+        cout << blue <<"       " << defult;
     }
 }
 
 int main()
 {
+    /*Color::Modifier red(Color::FG_RED);
+    Color::Modifier defult(Color::FG_DEFAULT);
+    Color::Modifier blue(Color::FG_BLUE);
+    system("setterm -cursor off");
     int key=0, position=1, sair=1;
-    hide();
+    //hide();
     do{
         while(key!=13){
-            system("cls");
+            system("clear");
             gotoxy(0,0);
-            textcolor(9,0);
-            cout << "TRABALHO M2" << endl;
+            
+            cout << blue << "TRABALHO M2" << defult << endl;
             selection (1,position);
-            cout << "Estadio" << endl;
+            cout << blue << "Estadio" << defult << endl;
             selection (2,position);
-            cout << "Creditos" << endl;
+            cout << blue << "Creditos" << defult << endl;
             selection (3,position);
-            cout << "Sair" << endl;
-            key = getch();
-
+            cout << red <<"Sair" << defult << endl;
+            key = getchar();
             if (key == 80 && position != 3)
                 position ++;
             else if (key == 72 && position !=1)
@@ -112,25 +120,24 @@ int main()
             }
         switch(position){
         case 1:
-            system ("cls");
+            system ("clear");
             fila();
             main();
             break;
         case 2:
-            system("cls");
-            textcolor(9,0);
+            system("clear");
             gotoxy(9,0);
-            cout << "Alexandre Fernandes Da Silva" << endl;
-            textcolor(9,0);
+            cout << blue << "Alexandre Fernandes Da Silva" << endl;
             gotoxy(9,1);
-            cout << "Patrick Medeiros De Luca" << endl;
-
+            cout << "Patrick Medeiros De Luca" << defult << endl;
             system("pause");
             main();
             break;
         case 3:
             exit(0);
         }
-    }while (sair!=0);
+    }while (sair!=0); */
+
+    fila();
     return 0;
 }

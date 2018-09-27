@@ -35,7 +35,7 @@ void resultado (TFila<int> filaN[], TFila<int> filaST[], int &qtdN, int &qtdST, 
         tamanhoST+=filaST[i].qtd;
 
 
-    system("cls");
+    system("clear");
     cout << "Torcedores normais atendidos: " << saidaN << endl;
     cout << "Socio torcedores atendidos: " << saidaST << endl << endl;
 
@@ -48,8 +48,8 @@ void resultado (TFila<int> filaN[], TFila<int> filaST[], int &qtdN, int &qtdST, 
     cout << "Tempo medio para o atendimento de torcedor normal: " << setprecision(3) << media1/saidaN << endl;
     cout << "Tempo medio para o atendimento de socio torcedor: " << setprecision(3) << media2/saidaST << endl << endl;
 
-    system("pause");
-    system("cls");
+    getchar();
+    system("clear");
 }
 
 void distribui (int pessoas, TFila<int> filaN[], TFila<int> filaST[], int qtdST, int qtdN, double &sobra){
