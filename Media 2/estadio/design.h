@@ -2,7 +2,6 @@
 #define DESIGN_H
 #include <stdio.h>
 #include <time.h>
-#include <windows.h>
 #include <iostream>
 using namespace std;
 COORD coord={0,0};
