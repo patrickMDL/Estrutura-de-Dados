@@ -5,48 +5,46 @@ using namespace std;
 
 int main()
 {
-    int qtdCaixa, ptotal, pTempo, saida = 0, tempo;
-    double controle =0;
-    cout << "Digite a quantidade de caixas: " << endl;
-    cin >> qtdCaixa;
-
-
-
-
-    TFila<int> fila[qtdCaixa];
-
-    for(int i=0; i< qtdCaixa; i++)
-        inicializa(fila[i]);
-
-    cout << endl << "Quantidade de pessoas na fila: " << endl;
-    cin >> ptotal;
-    cout <<endl << "Quantidade de pessoas que chegam por unidade de tempo: " << endl;
-    cin >> pTempo;
-    cout << endl << "Tempo de simulacao(unidade de tempo): " << endl;
+    int  qtdCaixas=0, pessoasFila, pessoasPturno, saida=0, tempo;
+    float controle;
+    while (qtdCaixas<1){
+        cout << "Digite a quantidade de caixas: " << endl;
+        cin >> qtdCaixas;
+    }
+    TFila<int> caixas[qtdCaixas];
+    for (int i =0; i<qtdCaixas; i++)
+        inicializa(caixas[i]);
+    cout << "Duracao da simulacao: " << endl;
     cin >> tempo;
+    cout << "Quantidade de clientes na fila: " << endl;
+    cin >> pessoasFila;
+    cout << "Quantidades de clientes por turno: " << endl;
+    cin >> pessoasPturno;
 
-    distribuir(fila, ptotal, tempo); //Distribui os torcedores conforme as probabilidades;
+    double media=0;
+    distribuir(caixas, pessoasFila, qtdCaixas, controle);
 
-    double media1 = 0, media2 = 0;
-
-    while (tempo >0){
-        imprimir(fila, qtdCaixa, tempo);
-
-        for(int i=0; i<qtdCaixa; i++){
-            if(fila[i].qtd != 0){
-                media1++;
-                fila[i].inicio->dado --;
-                if(fila[i].inicio->dado == 0){
-                    remove_inicio(fila[i]);
+    while (tempo > 0){
+        imprimir(caixas,qtdCaixas,tempo);
+        for (int i=0; i<qtdCaixas; i++){
+            if (caixas[i].qtd!=0){
+                media++;
+                caixas[i].inicio->dado--;
+                if(caixas[i].inicio->dado == 0){
+                    remove_inicio(caixas[i]);
                     saida++;
-                    cout << "Caixa[" << i+1 <<"]-------Atendidos:"<< saida <<endl;
+
+
                 }
             }
         }
+        cout << "Clientes atendidos: "<< saida << endl;
 
-        distribuir(fila, ptotal, tempo);
+        distribuir(caixas, pessoasFila, qtdCaixas, controle);
         system("pause");
         tempo--;
     }
-    resultado(fila, qtdCaixa, saida, media1, media2);
+    resultado(caixas, qtdCaixas, saida, media);
+
+
 }

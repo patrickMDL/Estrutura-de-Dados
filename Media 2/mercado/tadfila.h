@@ -32,15 +32,18 @@ TElemento<TIPO>*novo_elemento_fila(TIPO dado){
 template <typename TIPO>
 bool insere_fim (TFila<TIPO> &fila, TIPO dado){
     TElemento<TIPO> *novo = novo_elemento_fila(dado);
-    if (fila.inicio==NULL)
-        fila.inicio=novo;
-    else{
-        TElemento<TIPO> *nav = fila.inicio;
-        while (nav->proximo!=NULL)
-            nav=nav->proximo;
-        nav->proximo=novo;
-    }
-    fila.qtd++;
+        if(fila.inicio == NULL){
+            novo->proximo = NULL;
+            fila.inicio = novo;
+        }
+        else{
+            TElemento<TIPO> *nav = fila.inicio;
+            while(nav->proximo != NULL){
+                nav = nav->proximo;
+            }
+            nav->proximo = novo;
+        }
+        fila.qtd++;
 }
 
 template <typename TIPO>
