@@ -63,8 +63,9 @@ int main()
 {
 
     int key=0, position=1, sair=1;
-        HideCursor();
-        do{
+    HideCursor();
+    system("mode con: cols=50 lines=22");
+    do{
             while(key!=13){
                 system("cls");
                 gotoxy(0,0);
