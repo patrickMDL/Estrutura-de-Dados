@@ -33,7 +33,6 @@ template <typename TIPO>
 bool insere_fim (TFila<TIPO> &fila, TIPO dado){
     TElemento<TIPO> *novo = novo_elemento_fila(dado);
         if(fila.inicio == NULL){
-            novo->proximo = NULL;
             fila.inicio = novo;
         }
         else{
@@ -43,7 +42,7 @@ bool insere_fim (TFila<TIPO> &fila, TIPO dado){
             }
             nav->proximo = novo;
         }
-        fila.qtd++;
+
 }
 
 template <typename TIPO>
@@ -53,13 +52,13 @@ TIPO remove_inicio (TFila<TIPO> &fila){
         TIPO dado = deletar->dado;
         if (deletar->proximo ==NULL){
             fila.inicio=NULL;
-            fila.qtd--;
+
             delete deletar;
             return dado;
         }
         else{
             fila.inicio=deletar->proximo;
-            fila.qtd--;
+
             delete deletar;
             return dado;
         }
