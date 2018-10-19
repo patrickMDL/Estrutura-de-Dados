@@ -23,17 +23,34 @@ void inicializa_arvore(TArvore<TIPO> &arvore){
 }
 
 template <typename TIPO>
-void insere_arvore(TNo<TIPO> *&no, int chave, TIPO dado){
+int insere_arvore(TNo<TIPO> *&no, int chave, TIPO dado){
     if (no==nullptr){
         no = new TNo<TIPO>;
         no->chave=chave;
         no->dado=dado;
+        no->equilibrio=0;
         no->direita=NULL;
         no->esquerda=NULL;
+        return 1;
     }
-    if(chave < no->chave)
+    if(chave < no->chave){
         insere_arvore(no->esquerda, chave, dado);
-    else{
+        int n = insere_arvore(no->esquerda, chave, dado);
+        no->equilibrio=no->equilibrio-n;
+        if(no->equilibrio<-1){
+            if (no->direita->chave>chave){
+                direito_esquerda(no);
+            }else{
+                direita_direita(no);
+            }
+        }else{
+            if(no->equilibrio==0){
+                return 0;
+            }else{
+                return 1;
+            }
+        }
+    }else{
         if (chave > no->chave)
             insere_arvore(no->direita, chave, dado);
     }
@@ -68,9 +85,54 @@ void posfixo(TNo<TIPO> *no){
 
 template <typename TIPO>
 void esquerda_esquerda(TNo<TIPO> *&no){
+    TNo<TIPO> *b = no;
+    TNo<TIPO> *a = b->esquerda;
 
+    b->esquerda= a->direita;
+    a->direita=b;
+
+    a->equilibrio=0;
+    b->equilibrio=0;
+    no = a;
 }
 
+template <typename TIPO>
+void direita_direita(TNo<TIPO> *&no){
+    TNo<TIPO> *b=no;
+    TNo<TIPO> *a=b->direita;
+
+    b->direita=a->esquerda;
+    a->esquerda=b;
+
+    a->equilibrio=0;
+    b->equilibrio=0;
+    no = a;
+}
+template <typename TIPO>
+void esquerda_direita(TNo<TIPO> *&nav){//cu
+    TNo<TIPO> *b = nav->esq;
+    TNo<TIPO> *a = b->dir;
+    b->dir = a->esq;
+    nav->esq = a->dir;
+    a->esq = b;
+    a->dir = nav;
+    a->balanceamento=0;
+    b->balanceamento=0;
+    nav = a;
+}
+
+template <typename TIPO>
+void direito_esquerda(TNo<TIPO> *&nav){
+    TNo<TIPO> *b = nav->dir;//cu
+    TNo<TIPO> *a = b->esq;
+    b->esq = a->dir;
+    nav->dir = a->esq;
+    a->dir = b;
+    a->esq = nav;
+    a->balanceamento=0;
+    b->balanceamento=0;
+    nav = a;
+}
 template <typename TIPO>
 void remover(TNo<TIPO> *&no){
     TNo<TIPO> *apagar;
