@@ -51,10 +51,43 @@ int insere_arvore(TNo<TIPO> *&no, int chave, TIPO dado){
             }
         }
     }else{
-        if (chave > no->chave)
-            insere_arvore(no->direita, chave, dado);
+        if (chave > no->chave){
+            int n = insere_arvore(no->direita, chave, dado);
+            no->equilibrio += n;
+            if (no->equilibrio>1){
+                if (no->direita->chave > chave){
+                    direito_esquerda(no);
+                }else {
+                    direita_direita(no);
+                } return 0;
+            } else {
+                if (no->equilibrio == 0 ){
+                    return 0;
+                } else {
+                    return 1;
+                }
+            }
+        }
+        else {
+            if (chave < no->chave){
+                int n = insere_arvore(no->esquerda, chave, dado);
+                no->equilibrio-=n;
+                if(no->equilibrio < -1){
+                    if (no->esquerda->chave > chave){
+                        esquerda_esquerda(no);
+                    }else {
+                        esquerda_direita(no);
+                    }
+                    return 0;
+                } else {
+                    if (no->equilibrio == 0)
+                        return 0;
+                    else
+                        return 1;
+                }
+            }
+        }
     }
-
 }
 
 template <typename TIPO>
