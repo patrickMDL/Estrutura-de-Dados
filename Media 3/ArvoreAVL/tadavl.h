@@ -52,13 +52,13 @@ int insere_arvore(TNo<TIPO> *&no, int chave, TIPO dado){
         }
     }else{
         if (chave > no->chave){
-            int n = insere_arvore(no->direita, chave, dado);
-            no->equilibrio += n;
-            if (no->equilibrio>1){
-                if (no->direita->chave > chave){
-                    direito_esquerda(no);
+            int n = insere_arvore(no->esquerda, chave, dado);
+            no->equilibrio -= n;
+            if (no->equilibrio<-1){
+                if (no->esquerda->chave > chave){
+                    esquerda_esquerda(no);
                 }else {
-                    direita_direita(no);
+                    esquerda_direita(no);
                 } return 0;
             } else {
                 if (no->equilibrio == 0 ){
@@ -68,24 +68,8 @@ int insere_arvore(TNo<TIPO> *&no, int chave, TIPO dado){
                 }
             }
         }
-        else {
-            if (chave < no->chave){
-                int n = insere_arvore(no->esquerda, chave, dado);
-                no->equilibrio-=n;
-                if(no->equilibrio < -1){
-                    if (no->esquerda->chave > chave){
-                        esquerda_esquerda(no);
-                    }else {
-                        esquerda_direita(no);
-                    }
-                    return 0;
-                } else {
-                    if (no->equilibrio == 0)
-                        return 0;
-                    else
-                        return 1;
-                }
-            }
+        else{
+            return 0;
         }
     }
 }
@@ -143,27 +127,27 @@ void direita_direita(TNo<TIPO> *&no){
 }
 template <typename TIPO>
 void esquerda_direita(TNo<TIPO> *&nav){//cu
-    TNo<TIPO> *b = nav->esq;
-    TNo<TIPO> *a = b->dir;
-    b->dir = a->esq;
-    nav->esq = a->dir;
-    a->esq = b;
-    a->dir = nav;
-    a->balanceamento=0;
-    b->balanceamento=0;
+    TNo<TIPO> *b = nav->esquerda;
+    TNo<TIPO> *a = b->direita;
+    b->direita = a->esquerda;
+    nav->esquerda = a->direita;
+    a->esquerda = b;
+    a->direita = nav;
+    a->equilibrio=0;
+    b->equilibrio=0;
     nav = a;
 }
 
 template <typename TIPO>
 void direito_esquerda(TNo<TIPO> *&nav){
-    TNo<TIPO> *b = nav->dir;//cu
-    TNo<TIPO> *a = b->esq;
-    b->esq = a->dir;
-    nav->dir = a->esq;
-    a->dir = b;
-    a->esq = nav;
-    a->balanceamento=0;
-    b->balanceamento=0;
+    TNo<TIPO> *b = nav->direita;//cu
+    TNo<TIPO> *a = b->esquerda;
+    b->esquerda = a->direita;
+    nav->direita = a->esquerda;
+    a->direita = b;
+    a->esquerda = nav;
+    a->equilibrio=0;
+    b->equilibrio=0;
     nav = a;
 }
 template <typename TIPO>
