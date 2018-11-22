@@ -1,0 +1,24 @@
+#ifndef TADHEAP_H
+#define TADHEAP_H
+
+template <typename TIPO>
+struct THeap{
+    TIPO dado;
+    int chave;
+    THeap<TIPO> *direita;
+    THeap<TIPO> *direita2; 
+};
+
+template <typename TIPO>
+struct TArvore{
+    THeap<TIPO> *raiz;
+};
+
+template <typename TIPO>
+void inicializa_arvora(TArvore<TIPO> &arvore){
+    arvore.raiz=nullptr;
+}
+
+
+
+#endif // TADHEAP_H

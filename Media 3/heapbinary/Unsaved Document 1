@@ -1,0 +1,10 @@
+HEAP BINARY
+
+Ele é a junção de 2 funções, o Heap Sort com uma árvore binária.
+Heap Sort é um método de ordenação que se baseia em um dado ser sempre maior ou igual ao seu anterior.
+
+Aplicado na árvore binária, se exlcui a parte de "igual ao anterior" e mantem ele sempre maior que seu anterior.
+
+Por exemplo, numa árvore binária de busca, temos um nó 7 e um filho 3. Após o Heap Sort, o 3 tomará o lugar da raíz e o 7 ficará como filho. Se inserirmos o 2 em baixo do 7, o 2 será a nova raiz e o 3 será seu filho.
+
+Como heapSort é um método de busca binária, ele usa os Dados dos nós da árvore, não a chave, para fazer a ordenação.
