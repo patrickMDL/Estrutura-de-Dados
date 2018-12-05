@@ -1,6 +1,7 @@
 #ifndef TADHEAP_H
 #define TADHEAP_H
-
+#include <iostream>
+using namespace std;
 template <typename TIPO>
 struct THeap{
     TIPO dado;
@@ -22,7 +23,8 @@ void inicializa_arvora(TArvore<TIPO> &arvore){
 
 template <typename TIPO>
 void insere_arvore(THeap<TIPO> *&no, TIPO dado, int chave){ ///Insere na árvore, mas não deixa de acordo com o Heap;
-    if (no==nullptr){
+    if (no==nullptr ){
+        no = new THeap<TIPO>;
         no->chave=chave;
         no->dado=dado;
         no->n_filhos=0;
@@ -44,44 +46,106 @@ void insere_arvore(THeap<TIPO> *&no, TIPO dado, int chave){ ///Insere na árvore
                 insere_arvore(no->direita, chave, dado);
         }
     }
-    heap_binary(no, dado, chave);
-    heap_binary(no, dado, chave);///Chamando a segunda vez caso a primeira não tenha trocado todos os elementos necessários;
+
 }
 
 template <typename TIPO>
-void heap_binary(THeap<TIPO> *&no, TIPO dado, int chave){
-    if (no!=nullptr){
-        THeap<TIPO> *aux = no;
-        if (aux->esquerda->dado <= no->dado && no->esquerda!=nullptr){
-            TIPO dado_aux;
-            dado_aux = aux->esquerda->dado;
-            aux->esquerda->dado = no->dado;
-            no->dado=dado_aux;
-        }
-        heap_binary(no->esquerda, dado, chave && no->direita!=nullptr);
-        if (aux->esquerda->dado <= no->dado && no->esquerda!=nullptr){
-            TIPO dado_aux;
-            dado_aux = aux->esquerda->dado;
-            aux->esquerda->dado = no->dado;
-            no->dado=dado_aux;
-        }
-        if (aux->direita->dado <= no->dado){
-            TIPO dado_aux;
-            dado_aux=aux->direita->dado;
-            aux->direita->dado=no->dado;
-            no->dado=dado_aux;
-
-        }
-        heap_binary(no->direita, dado, chave);
-        if (aux->direita->dado <= no->dado){
-            TIPO dado_aux;
-            dado_aux=aux->direita->dado;
-            aux->direita->dado=no->dado;
-            no->dado=dado_aux;
-
-        }
+void construir_heap(THeap<TIPO> *&no, int vetor[], int tamanho){
+    int i;
+    int l=(2*i)+1;
+    int r=(2*i)+2;
+    for (i=tamanho; i>-1; i++){
+        insere_arvore(no, vetor[i], i);
     }
 
+}
+
+void heapify(int vetor[], int n, int i)
+{
+    int menor = i; ///Inicializa o menor como raiz;
+    int l = 2 * i + 1; /// esquerda = 2*i + 1
+    int r = 2 * i + 2; /// direita = 2*i + 2
+
+    ///Se o 'filho' esquerdo for menor q a raiz;
+    if (l < n && vetor[l] < vetor[menor])
+        menor = l;
+
+    ///Se o 'filho' direito for menor q a raiz;
+    if (r < n && vetor[r] < vetor[menor])
+        menor = r;
+
+    ///Se o menor é diferente da raiz;
+    if (menor != i) {
+        swap(vetor[i], vetor[menor]);
+
+        ///Recursivamente aplica o efeito nas sub-árvores.
+        heapify(vetor, n, menor);
+    }
+}
+
+void heapSort(int vetor[], int n)
+{
+    // Build heap
+    for (int i = n / 2 - 1; i >= 0; i--)
+        heapify(vetor, n, i);
+
+    // One by one extract an element from heap
+    for (int i = n - 1; i >= 0; i--) {
+        // Move current root to end
+        swap(vetor[0], vetor[i]);
+
+        // call max heapify on the reduced heap
+        heapify(vetor, i, 0);
+    }
+}
+
+
+void printVetor(int vetor[], int n)
+{
+    for (int i = 0; i < n; ++i)
+        cout << vetor[i] << " ";
+    cout << "\n";
+}
+
+//template <typename TIPO>
+//void plottree(THeap<TIPO> *arvore,int h,int H,int mid,int Y)  /// Printar a árvore;
+//{
+//  if(arvore==NULL)
+//    return;
+
+//    int x=mid,i;
+//    int y=Y+1+(H*(H+1))/2 - (h*(h+1))/2;
+//    gotoxy(x,y);
+//    cout <<arvore->dado;
+//    if(arvore->direita!=NULL)
+//    {
+//        for(i=1;i<=(h-1);i++)
+//        {
+//            gotoxy(mid+i,y+i);
+//            cout << "\\";
+//        }
+//        plottree(arvore->direita,h-1,H,mid+(h),Y);
+//    }
+//    if(arvore->esquerda!=NULL)
+//    {
+//        for(i=1;i<=(h-1);i++)
+//        {
+//            gotoxy(mid-i,y+i);
+//            cout << "/";
+//        }
+//        plottree(arvore->esquerda,h-1,H,mid-(h),Y);
+//    }
+
+//}
+
+template <typename TIPO>
+void prefixo(THeap<TIPO> *no){
+    if(no!=NULL){
+        cout << no->dado <<"[" <<no->chave<< "]" <<"[" <<no->n_filhos << "]" << " - ";
+        prefixo(no->esquerda);
+        prefixo(no->direita);
+
+    }
 }
 
 

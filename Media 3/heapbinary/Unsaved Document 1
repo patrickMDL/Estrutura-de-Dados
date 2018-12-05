@@ -8,3 +8,10 @@ Aplicado na árvore binária, se exlcui a parte de "igual ao anterior" e mantem 
 Por exemplo, numa árvore binária de busca, temos um nó 7 e um filho 3. Após o Heap Sort, o 3 tomará o lugar da raíz e o 7 ficará como filho. Se inserirmos o 2 em baixo do 7, o 2 será a nova raiz e o 3 será seu filho.
 
 Como heapSort é um método de busca binária, ele usa os Dados dos nós da árvore, não a chave, para fazer a ordenação.
+
+Implementação:
+    Ordenar um vetor com [n] números e depois implementar na árvore da seguinte maneira:
+        *v[i] //raiz;
+        *v[(i*2)+1]//nó da esquerda;
+        *v[(i*2)+2]//nó a direita;
+
