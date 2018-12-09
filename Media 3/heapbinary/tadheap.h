@@ -2,6 +2,8 @@
 #define TADHEAP_H
 #include <iostream>
 using namespace std;
+int POS_VETOR=0;
+
 template <typename TIPO>
 struct THeap{
     TIPO dado;
@@ -22,83 +24,68 @@ void inicializa_arvora(TArvore<TIPO> &arvore){
 }
 
 template <typename TIPO>
-void insere_arvore(THeap<TIPO> *&no, TIPO dado, int chave){ ///Insere na árvore, mas não deixa de acordo com o Heap;
-    if (no==nullptr ){
+void insere_arvore(THeap<TIPO> *&no, int vetor[], int i){ ///Insere na árvore, mas não deixa de acordo com o Heap;
+    if ((no->esquerda==nullptr || no->direita == nullptr) && i<sizeof *(vetor)){
         no = new THeap<TIPO>;
-        no->chave=chave;
-        no->dado=dado;
-        no->n_filhos=0;
-        no->direita=nullptr;
-        no->esquerda=nullptr;
+        int esq = 2*i+1;
+        int dir = 2*i+2;
+        if (no->esquerda==nullptr){
+            no->esquerda->dado=vetor[esq];
+            no->esquerda->chave=esq;
+            no->esquerda->esquerda=nullptr;
+            no->esquerda->direita=nullptr;
+        }
+        if (no->direita==nullptr){
+            no->direita->dado=vetor[dir];
+            no->direita->chave=dir;
+            no->direita->esquerda=nullptr;
+            no->direita->direita=nullptr;
+        }
     }else{
-        if(no->esquerda==nullptr && no->n_filhos<=1){
-            insere_arvore(no->esquerda, chave, dado);
-            no->n_filhos++;
-        }
-        else if (no->direita==nullptr && no->n_filhos<=1){
-            insere_arvore(no->direita, chave, dado);
-            no->n_filhos++;
-        }
-        else if (no->n_filhos>1){
-            if(no->esquerda==nullptr)
-                insere_arvore(no->esquerda, chave, dado);
-            else if (no->direita==nullptr)
-                insere_arvore(no->direita, chave, dado);
-        }
+        insere_arvore(no->esquerda, vetor, POS_VETOR);
     }
+    POS_VETOR++;
 
 }
 
-template <typename TIPO>
-void construir_heap(THeap<TIPO> *&no, int vetor[], int tamanho){
-    int i;
-    int l=(2*i)+1;
-    int r=(2*i)+2;
-    for (i=tamanho; i>-1; i++){
-        insere_arvore(no, vetor[i], i);
-    }
-
-}
 
 void heapify(int vetor[], int n, int i)
 {
-    int menor = i; ///Inicializa o menor como raiz;
-    int l = 2 * i + 1; /// esquerda = 2*i + 1
-    int r = 2 * i + 2; /// direita = 2*i + 2
+    int maior = i; // Initialize maior as root
+    int l = 2*i + 1; // left = 2*i + 1
+    int r = 2*i + 2; // right = 2*i + 2
 
-    ///Se o 'filho' esquerdo for menor q a raiz;
-    if (l < n && vetor[l] < vetor[menor])
-        menor = l;
+    ///Se o 'filho' esquerdo for maior que a raiz;
+    if (l < n && vetor[l] > vetor[maior])
+        maior = l;
 
-    ///Se o 'filho' direito for menor q a raiz;
-    if (r < n && vetor[r] < vetor[menor])
-        menor = r;
+    ///Se o 'filho' direito for maior que a raiz;
+    if (r < n && vetor[r] > vetor[maior])
+        maior = r;
 
-    ///Se o menor é diferente da raiz;
-    if (menor != i) {
-        swap(vetor[i], vetor[menor]);
+    ///Se o maior elemento não for a raiz;
+    if (maior != i)
+    {
+        swap(vetor[i], vetor[maior]);
 
-        ///Recursivamente aplica o efeito nas sub-árvores.
-        heapify(vetor, n, menor);
+        heapify(vetor, n, maior);
     }
 }
 
 void heapSort(int vetor[], int n)
 {
-    // Build heap
+    ///Constroi o heap (reorganiza o vetor);
     for (int i = n / 2 - 1; i >= 0; i--)
         heapify(vetor, n, i);
 
-    // One by one extract an element from heap
-    for (int i = n - 1; i >= 0; i--) {
-        // Move current root to end
-        swap(vetor[0], vetor[i]);
 
-        // call max heapify on the reduced heap
+    for (int i=n-1; i>=0; i--)
+    {
+        ///Move a raiz pro fim;
+        swap(vetor[0], vetor[i]);
         heapify(vetor, i, 0);
     }
 }
-
 
 void printVetor(int vetor[], int n)
 {
