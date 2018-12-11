@@ -7,4 +7,6 @@ SOURCES += \
         main.cpp
 
 HEADERS += \
-    tadheap.h
+    tadheap.h \
+    design.h \
+    tadfila.h
