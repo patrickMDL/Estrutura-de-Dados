@@ -136,50 +136,59 @@ int insere_arvore(THeap<TIPO> *&no, int chave, TIPO dado){
     }
 }
 
+template <typename TIPO>
+THeap<TIPO> *ordena_arvore (THeap<TIPO> *&no){
 
-void heapify(int vetor[], int n, int i)
-{
-    int maior = i; // Initialize maior as root
-    int l = 2*i + 1; // left = 2*i + 1
-    int r = 2*i + 2; // right = 2*i + 2
-
-    ///Se o 'filho' esquerdo for maior que a raiz;
-    if (l < n && vetor[l] > vetor[maior])
-        maior = l;
-
-    ///Se o 'filho' direito for maior que a raiz;
-    if (r < n && vetor[r] > vetor[maior])
-        maior = r;
-
-    ///Se o maior elemento não for a raiz;
-    if (maior != i)
-    {
-        swap(vetor[i], vetor[maior]);
-
-        heapify(vetor, n, maior);
+    if(no->esquerda!= nullptr && no->esquerda->dado < no->dado){
+        int dado = no->dado;
+        no->dado=no->esquerda->dado;
+        no->esquerda->dado=dado;
     }
+
+    if(no->direita!= nullptr && no->direita->dado < no->dado){
+        int dado = no->dado;
+        no->dado=no->direita->dado;
+        no->direita->dado=dado;
+    }
+    if (no->esquerda!=nullptr){
+        ordena_arvore(no->esquerda);///Próximo nó a esquerda;
+    }
+
+    if (no->direita!=nullptr){
+        ordena_arvore(no->direita);///Próximo nó a direita;
+    }
+
+    if(no->esquerda!= nullptr && no->esquerda->dado < no->dado){
+        int dado = no->dado;
+        no->dado=no->esquerda->dado;
+        no->esquerda->dado=dado;
+    }if(no->direita!= nullptr && no->direita->dado < no->dado){
+        int dado = no->dado;
+        no->dado=no->direita->dado;
+        no->direita->dado=dado;
+    }
+
+
+
+
+
+
 }
 
-void heapSort(int vetor[], int n)
+template <typename TIPO>
+int alturaArvore(THeap<TIPO> *no)   // Função que calcula a altura da árvore
 {
-    ///Constroi o heap (reorganiza o vetor);
-    for (int i = n / 2 - 1; i >= 0; i--)
-        heapify(vetor, n, i);
-
-
-    for (int i=n-1; i>=0; i--)
-    {
-        ///Move a raiz pro fim;
-        swap(vetor[0], vetor[i]);
-        heapify(vetor, i, 0);
-    }
-}
-
-void printVetor(int vetor[], int n)
-{
-    for (int i = 0; i < n; ++i)
-        cout << vetor[i] << " ";
-    cout << "\n";
+   int alturaEsquerda = 0, alturaDireita = 0;
+   if(no==NULL)
+   {
+       return 0;
+   }
+   alturaEsquerda = alturaArvore(no->esquerda)+1;
+   alturaDireita=alturaArvore(no->direita)+1;
+   if(alturaEsquerda>alturaDireita)
+    return alturaEsquerda;
+   else
+    return alturaDireita;
 }
 
 template <typename TIPO>
@@ -191,7 +200,7 @@ void plottree(THeap<TIPO> *arvore,int h,int H,int mid,int Y)  /// Printar a árv
     int x=mid,i;
     int y=Y+1+(H*(H+1))/2 - (h*(h+1))/2;
     gotoxy(x,y);
-    cout <<arvore->dado << "[" << arvore->bal << "]";
+    cout <<arvore->dado ;
     if(arvore->direita!=NULL)
     {
         for(i=1;i<=(h-1);i++)

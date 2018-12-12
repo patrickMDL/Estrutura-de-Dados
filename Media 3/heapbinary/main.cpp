@@ -3,7 +3,7 @@
 using namespace std;
 #include "tadheap.h"
 #include "design.h"
-#include "tadfila.h"
+
 
 /**
 -------------------------------------------------------------------------------
@@ -41,26 +41,23 @@ void teste (){
         cout << "Digite a chave[int]: ";
         cin >> chave;
         insere_arvore(arvore.raiz, chave, dado);
-        cout << "Aperte 'esc' para finalizar ou enter para continuar inserindo." << endl;
+        cout << "Aperte 'esc' para finalizar ou 'enter' para continuar inserindo." << endl;
         key = getch();
 
     }
 
 
-    int h=10;
+    int h=alturaArvore(arvore.raiz);
+
     plottree(arvore.raiz,h,h,h*(h+1)/2,gety());
+    ordena_arvore(arvore.raiz);///É necessário chamar duas vezes, pois as vezes uma comparação entre '1' e '2' por exemplo, faz o 2 ficar numa posição errada ja que posteriormente o
+    ordena_arvore(arvore.raiz);///'1' vai continuar subindo e o '2' pode acabar filho de um '4'. O que estaria errado para um HeapBinary;
+    cout << "\n\n\n\n\n";
+    plottree(arvore.raiz,h,h,h*(h+1)/2, gety()); ///Imprime a árvore pronta e ordenada;
+    cout << "\n\n\n\n\n";
     cout << endl;
-    system("pause");
+    system("pause");///Pause no programa para vizualisar a árvoreç
 
-
-    //cout << "=============="<< endl;
-
-
-    int arr[] = {12, 11, 13, 5, 6, 7};
-       int n = sizeof(arr)/sizeof(arr[0]);
-       heapSort(arr, n);
-       //cout << "Vetor organizado => ";
-      // printVetor(arr, n);
 }
 
 int main()
@@ -87,13 +84,13 @@ int main()
 
                 key = getch();
 
-                if (key == 80 && position != 3) //SETA PARA BAIXO NO TECLADO / não vai mais para baixo que a opção 6
+                if (key == 80 && position != 3) ///Detecta o precionamento da seta pra baixo;
                 {
-                    position ++; //POSITION ALMENTA E COLOCA A FLECHA PARA BAIXO
+                    position ++; ///Movimenta a seta pra baixo;
                 }
-                else if (key == 72 && position != 1) //SETA PARA CIMA NO TECLADO / não vai mais para baixo que a opção 1
+                else if (key == 72 && position != 1) ///Detecta o precionamento da seta pra cima;
                 {
-                    position --; //POSITION DIMINUI E COLOCA A FLECHA PARA CIMA
+                    position --; ///Movimenta seta pra cima;
                 }
         }
             switch(position){
@@ -105,7 +102,7 @@ int main()
             case 2:
                 {
                     system("cls");
-
+                    textcolor(12,0);
                     cout << "Criado por Alexandre Fernandes da Silva e Patrick M. De Luca." << endl;
                 }
                 system("pause");
@@ -114,7 +111,6 @@ int main()
             case 3:
                 system("cls");
                 exit(0);
-                break;
             }
             sair=1;
         }while (sair == 0);

@@ -8,5 +8,4 @@ SOURCES += \
 
 HEADERS += \
     tadheap.h \
-    design.h \
-    tadfila.h
+    design.h

@@ -49,8 +49,7 @@ SOURCES       = ..\heapbinary\main.cpp
 OBJECTS       = release/main.o
 
 DIST          =  tadheap.h \
-		design.h \
-		tadfila.h ..\heapbinary\main.cpp
+		design.h ..\heapbinary\main.cpp
 QMAKE_TARGET  = heapbinary
 DESTDIR        = release\ #avoid trailing-slash linebreak
 TARGET         = heapbinary.exe
@@ -99,8 +98,7 @@ compiler_clean:
 ####### Compile
 
 release/main.o: ../heapbinary/main.cpp ../heapbinary/tadheap.h \
-		../heapbinary/design.h \
-		../heapbinary/tadfila.h
+		../heapbinary/design.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\main.o ..\heapbinary\main.cpp
 
 ####### Install
