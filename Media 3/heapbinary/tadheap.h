@@ -137,6 +137,59 @@ int insere_arvore(THeap<TIPO> *&no, int chave, TIPO dado){
 }
 
 template <typename TIPO>
+void remover(THeap<TIPO> *&no){
+    THeap<TIPO> *apagar;
+    THeap<TIPO> *maior = no->esquerda;
+    if(maior == NULL){
+        apagar = no;
+        no = no->direita;
+        delete apagar;
+        return;
+    }
+    THeap<TIPO> *pai = NULL;
+    while (maior->direita !=NULL){
+        pai = maior;
+        maior = maior->direita;
+    }
+    maior->direita = no->direita;
+    if (pai != NULL){
+        pai->direita = maior->esquerda;
+        maior->esquerda = no->esquerda;
+    }
+    apagar = no;
+    no = maior;
+    delete apagar;
+}
+
+template <typename TIPO>
+void procura_remove(THeap<TIPO> *&no, int chave){ ///Procura o item pela chave;
+    if(no != NULL){
+        if(no->chave == chave){
+            remover(no);
+        }else{
+            if(chave > no->chave){
+                procura_remove(no->direita, chave);
+            }else{
+                procura_remove(no->esquerda, chave);
+            }
+        }
+    }
+}
+
+template <typename TIPO>
+void procura_removeDado(THeap<TIPO> *&no, int dado){ ///Procura o item pelo dado;
+    if(no != NULL){
+        if(no->dado == dado){
+            remover(no);
+        }else{
+            procura_remove(no->direita, dado);
+            procura_remove(no->esquerda, dado);
+        }
+    }
+}
+
+
+template <typename TIPO>
 THeap<TIPO> *ordena_arvore (THeap<TIPO> *&no){
 
     if(no->esquerda!= nullptr && no->esquerda->dado < no->dado){
@@ -200,7 +253,7 @@ void plottree(THeap<TIPO> *arvore,int h,int H,int mid,int Y)  /// Printar a árv
     int x=mid,i;
     int y=Y+1+(H*(H+1))/2 - (h*(h+1))/2;
     gotoxy(x,y);
-    cout <<arvore->dado ;
+    cout <<arvore->dado <<"}" << arvore->chave ;
     if(arvore->direita!=NULL)
     {
         for(i=1;i<=(h-1);i++)
